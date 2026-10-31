@@ -31,13 +31,38 @@ reasoning PLANS for the problem. JSON only:
 Allowed tactic values: direct or program. Distinguish assumptions, interpretations,
 or solution routes rather than paraphrasing one approach. A program tactic must
 be executable in the limited expression DSL; avoid it for inexpressible problems.
-No final answers in plans; no access to hidden labels."""
+No final answers in plans; no access to hidden labels.
+The task may be a hybrid multiple-choice problem.
+
+Generate three complementary reasoning plans.
+
+For each plan:
+- Identify all answer choices.
+- Determine which facts and calculations are needed
+  to assess each relevant choice.
+- Distinguish intermediate numeric results from
+  the final multiple-choice answer.
+- Do not assume an answer is correct in advance.
+- Do not include the final answer in the plan."""
 
 AGGREGATOR_SYSTEM = """AGGREGATOR. Select the most credible candidate using
 its provided answer, explanation, and any genuinely executed computation trace.
 Do not assume a majority is correct. A successful program execution is not proof
 of semantic correctness. Return JSON only: {"selected_id":"A", "reason":"..."}.
-You MUST choose one of the candidate ids; there is no reference answer."""
+You MUST choose one of the candidate ids; there is no reference answer.
+Evaluate the candidate solutions against the
+ORIGINAL question.
+
+A successful program execution does not prove
+that the program solves the original problem.
+
+For multiple-choice problems:
+- Select the answer supported by the evidence.
+- The final answer must be a valid option number.
+- Never return an intermediate calculation
+  as the final answer.
+- Do not invent evidence or assume that a
+  candidate is correct."""
 
 
 def _total_usage(responses):
